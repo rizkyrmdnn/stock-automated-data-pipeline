@@ -1,0 +1,30 @@
+name: Daily Stock Pipeline
+
+on:
+  schedule:
+    # Jalan otomatis setiap jam 5 pagi WIB (jam 22:00 UTC)
+    - cron: '0 22 * * *'
+  workflow_dispatch: # Tombol sakti biar lo bisa nge-run manual kapan aja dari GitHub
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ambil Code dari Repo
+        uses: actions/checkout@v3
+
+      - name: Siapin Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install Library
+        run: pip install -r requirements.txt
+
+      - name: Bikin File Kunci Rahasia
+        run: |
+          echo '${{ secrets.GCP_CREDENTIALS }}' > kunci-gcp.json
+
+      - name: Eksekusi Pipeline Sentimen
+        run: python sentimen_saham.py
