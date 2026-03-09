@@ -1,0 +1,5 @@
+yfinance
+pandas
+nltk
+google-cloud-bigquery
+pandas-gbq
