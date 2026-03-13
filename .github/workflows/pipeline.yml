@@ -28,3 +28,6 @@ jobs:
 
       - name: Eksekusi Pipeline Sentimen
         run: python sentimen_saham.py
+
+      - name: Eksekusi Pipeline Harga
+        run: python extract_saham.py
