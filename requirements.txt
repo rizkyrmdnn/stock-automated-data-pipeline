@@ -3,3 +3,4 @@ pandas
 nltk
 google-cloud-bigquery
 pandas-gbq
+tqdm

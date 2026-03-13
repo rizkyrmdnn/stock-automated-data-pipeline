@@ -38,7 +38,7 @@ df_harga_filter = df_harga[df_harga['Ticker'] == pilih_saham]
 
 # --- TAMPILAN GRAFIK HARGA ---
 st.subheader(f"Grafik Pergerakan Harga Penutupan (Close) - {pilih_saham}")
-st.line_chart(data=df_harga_filter, x='Date', y='Close', use_container_width=True)
+st.line_chart(data=df_harga_filter, x='Date', y='Close', width='stretch')
 
 st.divider() # Garis pembatas
 
@@ -47,7 +47,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader(f"Tabel Berita Terbaru - {pilih_saham}")
-    st.dataframe(df_berita_filter[['Tanggal', 'Judul_Berita', 'Sentimen']], use_container_width=True)
+    st.dataframe(df_berita_filter[['Tanggal', 'Judul_Berita', 'Sentimen']], width='stretch')
 
 with col2:
     st.subheader("Distribusi Sentimen AI")
