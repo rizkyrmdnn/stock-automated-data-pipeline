@@ -26,7 +26,8 @@ id_project_gcp = 'skripsi-pipeline-saham'
 
 @st.cache_data(ttl=3600) # Cache kedaluwarsa tiap 1 jam agar data fresh
 def load_sentimen():
-    query = f"SELECT * FROM `{id_project_gcp}.data_saham.tabel_sentimen` ORDER BY Tanggal DESC"
+    # Gunakan DISTINCT agar berita dengan judul dan tanggal yang sama tidak muncul ganda di visualisasi
+    query = f"SELECT DISTINCT * FROM `{id_project_gcp}.data_saham.tabel_sentimen` ORDER BY Tanggal DESC"
     return pandas_gbq.read_gbq(query, project_id=id_project_gcp)
 
 @st.cache_data(ttl=3600)
@@ -56,10 +57,11 @@ with st.sidebar:
     
     rentang_tanggal = st.date_input(
         "📅 Rentang Waktu:",
-        value=(min_date, max_date),
-        min_value=min_date,
-        max_value=max_date
+        value=(min_date, max_date)
     )
+    
+    # Tambahkan ruang kosong agar kalender tidak terpotong atau lompat ke atas
+    st.markdown("<div style='height: 380px;'></div>", unsafe_allow_html=True)
 
 # Validasi jika user belum milih rentang waktu lengkap (start & end)
 if len(rentang_tanggal) == 2:
