@@ -12,7 +12,7 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
 nltk.download('vader_lexicon', quiet=True)
 sia = SentimentIntensityAnalyzer()
 
-tickers = ['GOOGL', 'NVDA', 'VZ']
+tickers = ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL']
 data_berita = []
 
 print("Mulai narik dan analisis berita...\n")

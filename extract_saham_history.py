@@ -7,7 +7,7 @@ import os
 # --- SETUP KUNCI GCP ---
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
 
-tickers = ['GOOGL', 'NVDA', 'VZ']
+tickers = ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL']
 semua_data = []
 
 print("Mulai narik data harga historis (5 TAHUN TERAKHIR)...")
