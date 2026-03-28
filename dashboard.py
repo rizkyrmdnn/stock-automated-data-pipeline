@@ -49,7 +49,7 @@ with st.sidebar:
     st.title("⚙️ Kontrol Panel")
     st.markdown("Sistem Pendukung Keputusan")
     
-    pilih_saham = st.selectbox("🎯 Pilih Saham:", ['GOOGL', 'NVDA', 'VZ'])
+    pilih_saham = st.selectbox("🎯 Pilih Saham:", ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL'])
     
     # Ambil batas tanggal dari data harga
     min_date = df_harga['Date'].min()
