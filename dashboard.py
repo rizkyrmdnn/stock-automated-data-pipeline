@@ -5,6 +5,7 @@ import os
 import plotly.express as px
 import plotly.graph_objects as go
 from datetime import timedelta
+import base64
 
 # --- 1. SETUP KUNCI GCP ---
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
@@ -49,7 +50,11 @@ with st.sidebar:
     st.title("⚙️ Kontrol Panel")
     st.markdown("Sistem Pendukung Keputusan")
     
-    pilih_saham = st.selectbox("🎯 Pilih Saham:", ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL'])
+    with open("assets/icons/pilih-saham.png", "rb") as image_file:
+        icon_saham = base64.b64encode(image_file.read()).decode()
+    
+    st.markdown(f'<div style="display: flex; align-items: center; margin-bottom: 5px;"><img src="data:image/png;base64,{icon_saham}" width="28" style="margin-right: 10px;"><b>Pilih Saham:</b></div>', unsafe_allow_html=True)
+    pilih_saham = st.selectbox("Pilih Saham", ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL'], label_visibility="collapsed")
     
     # Ambil batas tanggal dari data harga
     min_date = df_harga['Date'].min()
