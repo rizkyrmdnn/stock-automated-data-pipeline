@@ -47,7 +47,7 @@ df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 # --- 4. SIDEBAR FILTER AREA ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/2942/2942813.png", width=80)
-    st.title("⚙️ Kontrol Panel")
+    st.title("⚙️ Panel Kontrol")
     st.markdown("Sistem Pendukung Keputusan")
     
     with open("assets/icons/pilih-saham.png", "rb") as image_file:
@@ -60,9 +60,18 @@ with st.sidebar:
     min_date = df_harga['Date'].min()
     max_date = df_harga['Date'].max()
     
+    # Set default ke 1 bulan terakhir (30 hari)
+    default_start_date = max(min_date, max_date - timedelta(days=30))
+    
+    with open("assets/icons/rentang-tanggal.png", "rb") as image_file:
+        icon_tanggal = base64.b64encode(image_file.read()).decode()
+        
+    st.markdown(f'<div style="display: flex; align-items: center; margin-bottom: 5px;"><img src="data:image/png;base64,{icon_tanggal}" width="28" style="margin-right: 10px;"><b>Rentang Waktu:</b></div>', unsafe_allow_html=True)
+    
     rentang_tanggal = st.date_input(
-        "📅 Rentang Waktu:",
-        value=(min_date, max_date)
+        "Rentang Waktu",
+        value=(default_start_date, max_date),
+        label_visibility="collapsed"
     )
     
     # Tambahkan ruang kosong agar kalender tidak terpotong atau lompat ke atas
