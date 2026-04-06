@@ -46,7 +46,7 @@ df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 
 # --- 4. SIDEBAR FILTER AREA ---
 with st.sidebar:
-    st.image("https://cdn-icons-png.flaticon.com/512/2942/2942813.png", width=80)
+    st.image("https://cdn-icons-png.flaticon.com/512/3126/3126489.png", width=80)
     st.title("⚙️ Panel Kontrol")
     st.markdown("Sistem Pendukung Keputusan")
     
@@ -97,7 +97,9 @@ if not df_h_filter.empty:
     df_h_filter['MA_7'] = df_h_filter['Close'].rolling(window=7).mean()
 
 # --- 5. HEADER & KPI SCORECARD ---
-st.title(f"📈 Analisis Saham: {pilih_saham}")
+with open("assets/icons/analisis-saham.png", "rb") as image_file:
+    icon_analisis = base64.b64encode(image_file.read()).decode()
+st.title(f"![icon](data:image/png;base64,{icon_analisis}) Analisis Saham: {pilih_saham}")
 st.markdown("*Analisis Prediktif & Sentimen Berita Menggunakan Natural Language Processing (NLP)*")
 
 # Kalkulasi KPI
@@ -130,7 +132,18 @@ col4.metric("Rata-rata Skor NLP", f"{rata_skor_nlp:.2f}", indikator_nlp)
 st.markdown("---")
 
 # --- 6. TABS LAYOUT INTERAKTIF ---
-tab1, tab2, tab3 = st.tabs(["📊 Candlestick & Tren", "📰 Analisis NLP Berita", "🤖 Korelasi Harga vs Sentimen"])
+with open("assets/icons/candle-stick.png", "rb") as image_file:
+    icon_candle = base64.b64encode(image_file.read()).decode()
+with open("assets/icons/news.png", "rb") as image_file:
+    icon_news = base64.b64encode(image_file.read()).decode()
+with open("assets/icons/sentiment.png", "rb") as image_file:
+    icon_sentiment = base64.b64encode(image_file.read()).decode()
+
+tab1, tab2, tab3 = st.tabs([
+    f"![icon](data:image/png;base64,{icon_candle}) Candlestick & Tren", 
+    f"![icon](data:image/png;base64,{icon_news}) Analisis NLP Berita", 
+    f"![icon](data:image/png;base64,{icon_sentiment}) Korelasi Harga vs Sentimen"
+])
 
 with tab1:
     st.subheader(f"Pergerakan Harga {pilih_saham} (Candlestick)")
@@ -157,7 +170,7 @@ with tab2:
     col_chart, col_data = st.columns([1, 1.5])
     
     with col_chart:
-        st.subheader("Distribusi Sentimen (VADER)")
+        st.subheader("Distribusi Sentimen")
         if not df_b_filter.empty:
             sentimen_count = df_b_filter['Sentimen'].value_counts().reset_index()
             sentimen_count.columns = ['Sentimen', 'Jumlah']
@@ -192,7 +205,7 @@ with tab3:
         fig_corr.add_trace(go.Bar(x=df_korelasi['Date'], y=df_korelasi['Close'], name='Harga Penutupan', opacity=0.6, marker_color='royalblue'))
         
         # Axis 2: Skor Sentimen (Line)
-        fig_corr.add_trace(go.Scatter(x=df_korelasi['Date'], y=df_korelasi['Skor_Compound'], name='Skor NLP (VADER)', 
+        fig_corr.add_trace(go.Scatter(x=df_korelasi['Date'], y=df_korelasi['Skor_Compound'], name='Skor NLP', 
                                       yaxis='y2', mode='lines+markers', line=dict(color='red', width=3)))
         
         fig_corr.update_layout(
