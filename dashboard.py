@@ -184,7 +184,52 @@ with tab2:
     with col_data:
         st.subheader("Daftar Berita Terbaru")
         if not df_b_filter.empty:
-            st.dataframe(df_b_filter[['Tanggal', 'Judul_Berita', 'Sentimen', 'Skor_Compound']], width='stretch', hide_index=True)
+            df_daily_list = []
+            
+            # Pastikan data terurut berdasarkan Tanggal dari yang terbaru
+            df_b_filter_sorted = df_b_filter.sort_values(by='Tanggal', ascending=False)
+            
+            for tanggal, group in df_b_filter_sorted.groupby('Tanggal', sort=False):
+                # Ambil data hari tersebut
+                g = group[['Tanggal', 'Judul_Berita', 'Sentimen', 'Skor_Compound']].copy()
+                g['Tanggal'] = g['Tanggal'].astype(str)
+                df_daily_list.append(g)
+                
+                # Hitung rata-rata skor harian
+                rata_harian = group['Skor_Compound'].mean()
+                if rata_harian > 0.05:
+                    teks_sentimen = "🟢 SENTIMEN HARIAN POSITIF"
+                elif rata_harian < -0.05:
+                    teks_sentimen = "🔴 SENTIMEN HARIAN NEGATIF"
+                else:
+                    teks_sentimen = "⚪ SENTIMEN HARIAN NETRAL"
+                
+                # Buat row summary dengan teks tersebut di kolom Judul_Berita
+                summary_row = pd.DataFrame({
+                    'Tanggal': [''], 
+                    'Judul_Berita': [teks_sentimen], 
+                    'Sentimen': [''], 
+                    'Skor_Compound': [None]
+                })
+                df_daily_list.append(summary_row)
+                
+            df_display = pd.concat(df_daily_list, ignore_index=True)
+            
+            # Fungsi styling untuk mewarnai baris summary
+            def row_style(row):
+                teks = str(row['Judul_Berita'])
+                if "SENTIMEN HARIAN POSITIF" in teks:
+                    return ["background-color: rgba(40, 167, 69, 0.2); color: #4ade80; font-weight: bold;"] * len(row)
+                elif "SENTIMEN HARIAN NEGATIF" in teks:
+                    return ["background-color: rgba(220, 53, 69, 0.2); color: #f87171; font-weight: bold;"] * len(row)
+                elif "SENTIMEN HARIAN NETRAL" in teks:
+                    return ["background-color: rgba(108, 117, 125, 0.2); color: #9ca3af; font-weight: bold;"] * len(row)
+                return [""] * len(row)
+            
+            # Karena tipe kolom Skor_Compound menjadi float dengan ada data None/NaN, gunakan style.format
+            styled_df = df_display.style.apply(row_style, axis=1).format(na_rep="")
+            
+            st.dataframe(styled_df, use_container_width=True, hide_index=True)
         else:
             st.info("Tidak ada data berita.")
 
