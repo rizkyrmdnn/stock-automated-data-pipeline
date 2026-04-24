@@ -44,6 +44,9 @@ with st.spinner('Menghubungkan ke Google Cloud & AI...'):
 df_harga['Date'] = pd.to_datetime(df_harga['Date']).dt.date
 df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 
+# Hapus duplikat data harga untuk mencegah duplikasi (bar chart menumpuk/sum)
+df_harga = df_harga.drop_duplicates(subset=['Date', 'Ticker'])
+
 # --- 4. SIDEBAR FILTER AREA ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/3126/3126489.png", width=80)
@@ -184,7 +187,7 @@ with tab2:
     with col_data:
         st.subheader("Daftar Berita Terbaru")
         if not df_b_filter.empty:
-            df_daily_list = []
+            rows_list = []
             
             # Pastikan data terurut berdasarkan Tanggal dari yang terbaru
             df_b_filter_sorted = df_b_filter.sort_values(by='Tanggal', ascending=False)
@@ -193,7 +196,7 @@ with tab2:
                 # Ambil data hari tersebut
                 g = group[['Tanggal', 'Judul_Berita', 'Sentimen', 'Skor_Compound']].copy()
                 g['Tanggal'] = g['Tanggal'].astype(str)
-                df_daily_list.append(g)
+                rows_list.extend(g.to_dict('records'))
                 
                 # Hitung rata-rata skor harian
                 rata_harian = group['Skor_Compound'].mean()
@@ -205,15 +208,14 @@ with tab2:
                     teks_sentimen = "⚪ SENTIMEN HARIAN NETRAL"
                 
                 # Buat row summary dengan teks tersebut di kolom Judul_Berita
-                summary_row = pd.DataFrame({
-                    'Tanggal': [''], 
-                    'Judul_Berita': [teks_sentimen], 
-                    'Sentimen': [''], 
-                    'Skor_Compound': [None]
+                rows_list.append({
+                    'Tanggal': '', 
+                    'Judul_Berita': teks_sentimen, 
+                    'Sentimen': '', 
+                    'Skor_Compound': None
                 })
-                df_daily_list.append(summary_row)
                 
-            df_display = pd.concat(df_daily_list, ignore_index=True)
+            df_display = pd.DataFrame(rows_list)
             
             # Fungsi styling untuk mewarnai baris summary
             def row_style(row):
@@ -229,7 +231,7 @@ with tab2:
             # Karena tipe kolom Skor_Compound menjadi float dengan ada data None/NaN, gunakan style.format
             styled_df = df_display.style.apply(row_style, axis=1).format(na_rep="")
             
-            st.dataframe(styled_df, use_container_width=True, hide_index=True)
+            st.dataframe(styled_df, width='stretch', hide_index=True)
         else:
             st.info("Tidak ada data berita.")
 
