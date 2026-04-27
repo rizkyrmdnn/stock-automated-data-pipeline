@@ -6,11 +6,16 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import timedelta
 import base64
+from google import genai
+import time
 
 # --- 1. SETUP KUNCI GCP ---
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
 
-# --- 2. KONFIGURASI HALAMAN & CSS INJECTION ---
+# --- 2. SETUP GEMINI CLIENT ---
+gemini_client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+
+# --- 3. KONFIGURASI HALAMAN & CSS INJECTION ---
 st.set_page_config(page_title="Dashboard Saham AI", page_icon="📈", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
@@ -21,7 +26,7 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 3. FUNGSI NARIK DATA ---
+# --- 4. FUNGSI NARIK DATA ---
 # PERHATIAN: Ganti pakai Project ID GCP lo yang asli
 id_project_gcp = 'skripsi-pipeline-saham' 
 
@@ -47,7 +52,7 @@ df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 # Hapus duplikat data harga untuk mencegah duplikasi (bar chart menumpuk/sum)
 df_harga = df_harga.drop_duplicates(subset=['Date', 'Ticker'])
 
-# --- 4. SIDEBAR FILTER AREA ---
+# --- 5. SIDEBAR FILTER AREA ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/3126/3126489.png", width=80)
     st.title("⚙️ Panel Kontrol")
@@ -99,7 +104,44 @@ df_b_filter = df_berita[(df_berita['Ticker'] == pilih_saham) &
 if not df_h_filter.empty:
     df_h_filter['MA_7'] = df_h_filter['Close'].rolling(window=7).mean()
 
-# --- 5. HEADER & KPI SCORECARD ---
+# --- 6. FUNGSI AI SUMMARY ---
+@st.cache_data(ttl=3600)
+def dapatkan_ringkasan_gemini(nama_saham, df_berita):
+    if df_berita.empty:
+        return "Tidak ada berita untuk dianalisis saat ini."
+    
+    kumpulan_berita = "\n".join([f"- {row['Judul_Berita']}" for _, row in df_berita.head(10).iterrows()])
+    
+    prompt = f"""
+    Kamu adalah seorang analis saham profesional. Berdasarkan berita-berita terbaru mengenai saham {nama_saham} berikut ini:
+    
+    {kumpulan_berita}
+    
+    Tolong berikan ringkasan eksekutif (maksimal 3 kalimat pendek) mengenai bagaimana sentimen pasar terhadap saham {nama_saham} saat ini berdasarkan berita di atas. 
+    Gunakan bahasa Indonesia yang profesional namun mudah dipahami.
+    """
+    
+    # Mekanisme Auto-Retry (Maksimal 3 kali percobaan)
+    maksimal_coba = 3
+    for percobaan in range(maksimal_coba):
+        try:
+            response = gemini_client.models.generate_content(
+                model="gemini-3.1-flash-lite-preview", 
+                contents=prompt
+            )
+            return response.text
+        except Exception as e:
+            error_msg = str(e).lower()
+            # Kalau error-nya karena server sibuk (503) atau quota habis (429)
+            if "503" in error_msg or "429" in error_msg or "demand" in error_msg:
+                if percobaan < maksimal_coba - 1:
+                    time.sleep(2) # Tunggu 2 detik sebelum nyoba lagi
+                    continue # Looping nyoba tembak API lagi
+            
+            # Kalau gagal terus sampai 3 kali, atau errornya beda
+            return f"Sistem AI sedang sibuk. Mohon coba lagi nanti. (Error log: {e})"
+
+# --- 7. HEADER & KPI SCORECARD ---
 with open("assets/icons/analisis-saham.png", "rb") as image_file:
     icon_analisis = base64.b64encode(image_file.read()).decode()
 st.title(f"![icon](data:image/png;base64,{icon_analisis}) Analisis Saham: {pilih_saham}")
@@ -134,7 +176,15 @@ col4.metric("Rata-rata Skor NLP", f"{rata_skor_nlp:.2f}", indikator_nlp)
 
 st.markdown("---")
 
-# --- 6. TABS LAYOUT INTERAKTIF ---
+# Menambahkan Kolom AI Summary di bawah KPI
+st.subheader("🤖 AI Executive Summary (Powered by Gemini)")
+with st.spinner("Gemini sedang menganalisis berita..."):
+    ringkasan = dapatkan_ringkasan_gemini(pilih_saham, df_b_filter)
+    st.info(ringkasan)
+
+st.markdown("---")
+
+# --- 8. TABS LAYOUT INTERAKTIF ---
 with open("assets/icons/candle-stick.png", "rb") as image_file:
     icon_candle = base64.b64encode(image_file.read()).decode()
 with open("assets/icons/news.png", "rb") as image_file:

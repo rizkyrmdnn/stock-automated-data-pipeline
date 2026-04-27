@@ -2,3 +2,4 @@ yfinance
 pandas
 nltk
 pandas-gbq
+google-genai
