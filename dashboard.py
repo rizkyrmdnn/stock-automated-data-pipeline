@@ -8,9 +8,14 @@ from datetime import timedelta
 import base64
 from google import genai
 import time
+import json
 
 # --- 1. SETUP KUNCI GCP ---
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
+if "gcp_service_account" in st.secrets:
+    # Bikin file kunci-gcp.json secara dinamis di server cloud
+    with open("kunci-gcp.json", "w") as f:
+        json.dump(dict(st.secrets["gcp_service_account"]), f)
 
 # --- 2. SETUP GEMINI CLIENT ---
 gemini_client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
