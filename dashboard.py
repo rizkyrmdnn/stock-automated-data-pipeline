@@ -5,22 +5,18 @@ import plotly.express as px
 import plotly.graph_objects as go
 from datetime import timedelta
 import base64
-from google import genai
+import json
 import time
 from google.oauth2 import service_account
 from google import genai
 
-# --- 1. SETUP KUNCI GCP SECARA LANGSUNG (ANTI-ERROR) ---
-if "gcp_service_account" in st.secrets:
-    # Ubah format secrets menjadi dictionary Python
-    gcp_secrets = dict(st.secrets["gcp_service_account"])
-    
-    # KRUSIAL: Ubah teks literal '\n' menjadi karakter ganti baris (Enter) yang sebenarnya
-    gcp_secrets["private_key"] = gcp_secrets["private_key"].replace('\\n', '\n')
-    
-    # Baca kredensial dengan format private_key yang sudah diperbaiki
+# --- 1. SETUP KUNCI GCP (JURUS ULTIMATE) ---
+if "GCP_JSON" in st.secrets:
+    # Ambil teks JSON mentah dari Secrets dan jadikan dictionary Python
+    gcp_secrets = json.loads(st.secrets["GCP_JSON"])
     creds = service_account.Credentials.from_service_account_info(gcp_secrets)
 else:
+    # Kalau di lokal, baca dari file biasa
     creds = service_account.Credentials.from_service_account_file("kunci-gcp.json")
 
 # --- 2. SETUP GEMINI CLIENT ---
