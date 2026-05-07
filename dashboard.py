@@ -2,23 +2,29 @@ import streamlit as st
 import pandas as pd
 import pandas_gbq
 import os
-# import plotly.express as px
-# import plotly.graph_objects as go
+import plotly.express as px
+import plotly.graph_objects as go
 from datetime import timedelta
 import base64
 from google import genai
 import time
-import json
+from google.oauth2 import service_account
+from google import genai
 
-# --- 1. SETUP KUNCI GCP ---
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
+# --- 1. SETUP KUNCI GCP SECARA LANGSUNG (ANTI-ERROR) ---
+# Cek apakah aplikasi jalan di Streamlit Cloud (membaca secrets)
 if "gcp_service_account" in st.secrets:
-    # Bikin file kunci-gcp.json secara dinamis di server cloud
-    with open("kunci-gcp.json", "w") as f:
-        json.dump(dict(st.secrets["gcp_service_account"]), f)
+    # Baca kredensial langsung dari memori Secrets (tanpa bikin file)
+    creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"])
+else:
+    # Kalau lagi di-run di laptop lokal, baca dari file JSON
+    creds = service_account.Credentials.from_service_account_file("kunci-gcp.json")
 
 # --- 2. SETUP GEMINI CLIENT ---
-gemini_client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+if "GEMINI_API_KEY" in st.secrets:
+    gemini_client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+else:
+    st.error("API Key Gemini tidak ditemukan di Secrets!")
 
 # --- 3. KONFIGURASI HALAMAN & CSS INJECTION ---
 st.set_page_config(page_title="Dashboard Saham AI", page_icon="📈", layout="wide", initial_sidebar_state="expanded")
@@ -27,7 +33,7 @@ st.markdown("""
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-    .stDeployButton {display: none;}
+    header {visibility: hidden;}
     </style>
     """, unsafe_allow_html=True)
 
@@ -39,12 +45,14 @@ id_project_gcp = 'skripsi-pipeline-saham'
 def load_sentimen():
     # Gunakan DISTINCT agar berita dengan judul dan tanggal yang sama tidak muncul ganda di visualisasi
     query = f"SELECT DISTINCT * FROM `{id_project_gcp}.data_saham.tabel_sentimen` ORDER BY Tanggal DESC"
-    return pandas_gbq.read_gbq(query, project_id=id_project_gcp)
+    # KRUSIAL: Masukkan variabel 'creds' ke dalam parameter credentials=
+    return pandas_gbq.read_gbq(query, project_id=id_project_gcp, credentials=creds)
 
 @st.cache_data(ttl=3600)
 def load_harga():
     query = f"SELECT * FROM `{id_project_gcp}.data_saham.tabel_harga` ORDER BY Date DESC"
-    return pandas_gbq.read_gbq(query, project_id=id_project_gcp)
+# KRUSIAL: Masukkan variabel 'creds' ke dalam parameter credentials=
+    return pandas_gbq.read_gbq(query, project_id=id_project_gcp, credentials=creds)
 
 with st.spinner('Menghubungkan ke Google Cloud & AI...'):
     df_berita = load_sentimen()

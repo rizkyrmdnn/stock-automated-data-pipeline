@@ -1,5 +1,9 @@
 yfinance
 pandas
 nltk
+google-cloud-bigquery
 pandas-gbq
+tqdm
+streamlit
+plotly
 google-genai
