@@ -11,12 +11,16 @@ from google.oauth2 import service_account
 from google import genai
 
 # --- 1. SETUP KUNCI GCP SECARA LANGSUNG (ANTI-ERROR) ---
-# Cek apakah aplikasi jalan di Streamlit Cloud (membaca secrets)
 if "gcp_service_account" in st.secrets:
-    # Baca kredensial langsung dari memori Secrets (tanpa bikin file)
-    creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"])
+    # Ubah format secrets menjadi dictionary Python
+    gcp_secrets = dict(st.secrets["gcp_service_account"])
+    
+    # KRUSIAL: Ubah teks literal '\n' menjadi karakter ganti baris (Enter) yang sebenarnya
+    gcp_secrets["private_key"] = gcp_secrets["private_key"].replace('\\n', '\n')
+    
+    # Baca kredensial dengan format private_key yang sudah diperbaiki
+    creds = service_account.Credentials.from_service_account_info(gcp_secrets)
 else:
-    # Kalau lagi di-run di laptop lokal, baca dari file JSON
     creds = service_account.Credentials.from_service_account_file("kunci-gcp.json")
 
 # --- 2. SETUP GEMINI CLIENT ---
