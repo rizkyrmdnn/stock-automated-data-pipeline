@@ -68,7 +68,7 @@ df_harga = df_harga.drop_duplicates(subset=['Date', 'Ticker'])
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/3126/3126489.png", width=80)
     st.title("⚙️ Panel Kontrol")
-    st.markdown("Sistem Pendukung Keputusan")
+    
     
     with open("assets/icons/pilih-saham.png", "rb") as image_file:
         icon_saham = base64.b64encode(image_file.read()).decode()
