@@ -138,7 +138,7 @@ def dapatkan_ringkasan_gemini(nama_saham, df_berita):
     for percobaan in range(maksimal_coba):
         try:
             response = gemini_client.models.generate_content(
-                model="gemini-3.1-flash-lite-preview", 
+                model="gemini-3.1-flash-lite", 
                 contents=prompt
             )
             return response.text
