@@ -4,7 +4,7 @@ on:
   schedule:
     # Jalan otomatis setiap jam 5 pagi WIB (jam 22:00 UTC)
     - cron: '0 22 * * *'
-  workflow_dispatch: # Tombol sakti biar lo bisa nge-run manual kapan aja dari GitHub
+  workflow_dispatch: # Tombol manual
 
 jobs:
   run-pipeline:
