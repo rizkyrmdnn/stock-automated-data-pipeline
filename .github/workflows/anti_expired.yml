@@ -27,7 +27,7 @@ jobs:
 
       - name: Setup GCP Credentials
         run: |
-          echo '${{ secrets.GCP_SERVICE_ACCOUNT }}' > kunci-gcp.json
+          echo '${{ secrets.GCP_CREDENTIALS }}' > kunci-gcp.json
 
       - name: Jalankan Script Perpanjang Umur
         run: |
