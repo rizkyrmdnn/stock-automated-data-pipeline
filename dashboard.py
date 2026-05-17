@@ -1,14 +1,21 @@
+# pyrefly: ignore [missing-import]
 import streamlit as st
 import pandas as pd
+# pyrefly: ignore [missing-import]
 import pandas_gbq
+# pyrefly: ignore [missing-import]
 import plotly.express as px
+# pyrefly: ignore [missing-import]
 import plotly.graph_objects as go
 from datetime import timedelta
 import base64
 import json
 import time
+# pyrefly: ignore [missing-import]
 from google.oauth2 import service_account
+# pyrefly: ignore [missing-import]
 from google import genai
+
 
 # --- 1. SETUP KUNCI GCP (JURUS ULTIMATE) ---
 if "GCP_JSON" in st.secrets:
@@ -81,7 +88,7 @@ with st.sidebar:
     max_date = df_harga['Date'].max()
     
     # Set default ke 1 bulan terakhir (30 hari)
-    default_start_date = max(min_date, max_date - timedelta(days=30))
+    default_start_date = max(min_date, max_date - timedelta(days=90))
     
     with open("assets/icons/rentang-tanggal.png", "rb") as image_file:
         icon_tanggal = base64.b64encode(image_file.read()).decode()
