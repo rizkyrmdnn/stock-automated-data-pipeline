@@ -88,7 +88,7 @@ with st.sidebar:
     max_date = df_harga['Date'].max()
     
     # Set default ke 1 bulan terakhir (30 hari)
-    default_start_date = max(min_date, max_date - timedelta(days=90))
+    default_start_date = max(min_date, max_date - timedelta(days=60))
     
     with open("assets/icons/rentang-tanggal.png", "rb") as image_file:
         icon_tanggal = base64.b64encode(image_file.read()).decode()
