@@ -18,10 +18,9 @@ from google import genai
 
 
 # --- 1. SETUP KUNCI GCP (JURUS ULTIMATE) ---
-if "GCP_JSON" in st.secrets:
-    # Ambil teks JSON mentah dari Secrets dan jadikan dictionary Python
-    gcp_secrets = json.loads(st.secrets["GCP_JSON"])
-    creds = service_account.Credentials.from_service_account_info(gcp_secrets)
+if "gcp_service_account" in st.secrets:
+    # Menggunakan st.secrets langsung sebagai dictionary (Standar Streamlit Cloud)
+    creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"])
 else:
     # Kalau di lokal, baca dari file biasa
     creds = service_account.Credentials.from_service_account_file("kunci-gcp.json")
