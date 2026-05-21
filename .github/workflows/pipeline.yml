@@ -2,9 +2,9 @@ name: Daily Stock Pipeline
 
 on:
   schedule:
-    # Jalan otomatis setiap jam 5 pagi WIB (jam 22:00 UTC)
+    # Run everyday at 5:00 AM WIB (22:00 UTC)
     - cron: '0 22 * * *'
-  workflow_dispatch: # Tombol manual
+  workflow_dispatch: # Manual trigger
 
 jobs:
   run-pipeline:
