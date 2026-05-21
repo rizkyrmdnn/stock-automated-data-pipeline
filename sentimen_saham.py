@@ -13,6 +13,16 @@ nltk.download('vader_lexicon', quiet=True)
 sia = SentimentIntensityAnalyzer()
 
 tickers = ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL']
+
+# Dictionary keyword untuk memfilter berita supaya nggak salah masuk
+company_keywords = {
+    'GOOGL': ['google', 'alphabet', 'googl'],
+    'NVDA': ['nvidia', 'nvda'],
+    'VZ': ['verizon', 'vz'],
+    'TSLA': ['tesla', 'tsla'],
+    'AAPL': ['apple', 'aapl']
+}
+
 data_berita = []
 
 print("Mulai narik dan analisis berita...\n")
@@ -23,6 +33,9 @@ for ticker in tickers:
     saham = yf.Ticker(ticker)
     berita_list = saham.news
     
+    # Ambil keyword yang relevan buat saham ini
+    keywords = company_keywords.get(ticker, [ticker.lower()])
+    
     for berita in berita_list:
         content = berita.get('content', {})
         judul = content.get('title', '')
@@ -30,6 +43,10 @@ for ticker in tickers:
         tanggal = content.get('pubDate', '')
         
         teks_analisis = f"{judul}. {ringkasan}"
+        
+        # FILTER: Pastikan ada keyword perusahaan di judul atau ringkasan
+        if not any(kw in teks_analisis.lower() for kw in keywords):
+            continue # Skip berita ini
         
         skor = sia.polarity_scores(teks_analisis)
         skor_akhir = skor['compound']
@@ -55,8 +72,7 @@ df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 # --- 3. FASE LOAD (KIRIM KE BIGQUERY) ---
 print("\nMulai siap-siap kirim data ke Google Cloud BigQuery...")
 
-# PERHATIAN: Ganti 'skripsi-pipeline-saham' dengan Project ID lo yang asli di Google Cloud!
-# Kadang Google nambahin angka di belakangnya, misal: 'skripsi-pipeline-saham-123456'
+
 id_project_gcp = 'skripsi-pipeline-saham' 
 tabel_tujuan = 'data_saham.tabel_sentimen'
 
