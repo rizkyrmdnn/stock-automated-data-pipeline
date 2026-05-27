@@ -4,6 +4,7 @@ import pandas_gbq
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import os
+import time
 
 # --- 1. SETTING KUNCI GOOGLE CLOUD ---
 # Pastiin nama file json ini udah bener dan ada di folder utama (sejajar sama script ini)
@@ -68,6 +69,9 @@ for ticker in tickers:
 
 df_berita = pd.DataFrame(data_berita)
 df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
+
+print(f"Jeda 5 detik biar ga kena rate limit Yahoo Finance...")
+time.sleep(5)
 
 # --- 3. FASE LOAD (KIRIM KE BIGQUERY) ---
 print("\nMulai siap-siap kirim data ke Google Cloud BigQuery...")
