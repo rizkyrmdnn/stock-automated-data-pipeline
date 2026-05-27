@@ -2,8 +2,8 @@ name: Streamlit Keep-Alive Pinger
 
 on:
   schedule:
-    # Run every 2 days at 00:00 UTC (07:00 WIB)
-    - cron: '0 0 */2 * *'
+    # Run every 1 day at 00:00 UTC (07:00 WIB)
+    - cron: '0 0 */1 * *'
   
   workflow_dispatch: # Manual trigger
 
