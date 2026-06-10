@@ -1,5 +1,10 @@
+# Data Ingestion & APIs
 yfinance
+google-genai
+
+# Data Manipulation & Analysis
 pandas
 nltk
+
+# Database & Cloud Integration
 pandas-gbq
-google-genai

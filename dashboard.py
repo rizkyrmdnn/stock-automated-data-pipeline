@@ -1,37 +1,31 @@
-# pyrefly: ignore [missing-import]
 import streamlit as st
 import pandas as pd
-# pyrefly: ignore [missing-import]
 import pandas_gbq
-# pyrefly: ignore [missing-import]
 import plotly.express as px
-# pyrefly: ignore [missing-import]
 import plotly.graph_objects as go
 from datetime import timedelta
 import base64
 import json
 import time
-# pyrefly: ignore [missing-import]
 from google.oauth2 import service_account
-# pyrefly: ignore [missing-import]
 from google import genai
 
 
-# --- 1. SETUP KUNCI GCP (JURUS ULTIMATE) ---
+# --- 1. GCP AUTHENTICATION  ---
 if "gcp_service_account" in st.secrets:
-    # Menggunakan st.secrets langsung sebagai dictionary (Standar Streamlit Cloud)
+    # streamlit cloud credentials
     creds = service_account.Credentials.from_service_account_info(st.secrets["gcp_service_account"])
 else:
-    # Kalau di lokal, baca dari file biasa
+    # local credentials
     creds = service_account.Credentials.from_service_account_file("kunci-gcp.json")
 
-# --- 2. SETUP GEMINI CLIENT ---
+# --- 2. GEMINI CLIENT SETUP ---
 if "GEMINI_API_KEY" in st.secrets:
     gemini_client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 else:
     st.error("API Key Gemini tidak ditemukan di Secrets!")
 
-# --- 3. KONFIGURASI HALAMAN & CSS INJECTION ---
+# --- 3. PAGE CONFIGURATION & CSS INJECTION ---
 st.set_page_config(page_title="Dashboard Saham AI", page_icon="📈", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
@@ -42,35 +36,31 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# --- 4. FUNGSI NARIK DATA ---
-# PERHATIAN: Ganti pakai Project ID GCP lo yang asli
+# --- 4. LOAD DATA FUNCTION ---
 id_project_gcp = 'skripsi-pipeline-saham' 
 
-@st.cache_data(ttl=3600) # Cache kedaluwarsa tiap 1 jam agar data fresh
+@st.cache_data(ttl=3600) # expired cache every hour
 def load_sentimen():
-    # Gunakan DISTINCT agar berita dengan judul dan tanggal yang sama tidak muncul ganda di visualisasi
     query = f"SELECT DISTINCT * FROM `{id_project_gcp}.data_saham.tabel_sentimen` ORDER BY Tanggal DESC"
-    # KRUSIAL: Masukkan variabel 'creds' ke dalam parameter credentials=
     return pandas_gbq.read_gbq(query, project_id=id_project_gcp, credentials=creds)
 
 @st.cache_data(ttl=3600)
 def load_harga():
     query = f"SELECT * FROM `{id_project_gcp}.data_saham.tabel_harga` ORDER BY Date DESC"
-# KRUSIAL: Masukkan variabel 'creds' ke dalam parameter credentials=
     return pandas_gbq.read_gbq(query, project_id=id_project_gcp, credentials=creds)
 
 with st.spinner('Menghubungkan ke Google Cloud & AI...'):
     df_berita = load_sentimen()
     df_harga = load_harga()
 
-# Konversi Format Tanggal
+# date conversion
 df_harga['Date'] = pd.to_datetime(df_harga['Date']).dt.date
 df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 
-# Hapus duplikat data harga untuk mencegah duplikasi (bar chart menumpuk/sum)
+# remove duplicate data
 df_harga = df_harga.drop_duplicates(subset=['Date', 'Ticker'])
 
-# --- 5. SIDEBAR FILTER AREA ---
+# --- 5. SIDEBAR FILTER CONFIGURATION ---
 with st.sidebar:
     st.image("https://cdn-icons-png.flaticon.com/512/3126/3126489.png", width=80)
     st.title("⚙️ Panel Kontrol")
@@ -82,11 +72,11 @@ with st.sidebar:
     st.markdown(f'<div style="display: flex; align-items: center; margin-bottom: 5px;"><img src="data:image/png;base64,{icon_saham}" width="28" style="margin-right: 10px;"><b>Pilih Saham:</b></div>', unsafe_allow_html=True)
     pilih_saham = st.selectbox("Pilih Saham", ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL'], label_visibility="collapsed")
     
-    # Ambil batas tanggal dari data harga
+    # get date range from stock data
     min_date = df_harga['Date'].min()
     max_date = df_harga['Date'].max()
     
-    # Set default ke 1 bulan terakhir (30 hari)
+    # default to 60 days
     default_start_date = max(min_date, max_date - timedelta(days=60))
     
     with open("assets/icons/rentang-tanggal.png", "rb") as image_file:
@@ -219,16 +209,16 @@ tab1, tab2, tab3 = st.tabs([
 with tab1:
     st.subheader(f"Pergerakan Harga {pilih_saham} (Candlestick)")
     if not df_h_filter.empty:
-        # Menggunakan Graph Objects untuk Candlestick
+        # using go for candlestick
         fig_candle = go.Figure()
         
-        # Tambah Candlestick
+        # add candlestick
         fig_candle.add_trace(go.Candlestick(x=df_h_filter['Date'],
                         open=df_h_filter['Open'], high=df_h_filter['High'],
                         low=df_h_filter['Low'], close=df_h_filter['Close'],
                         name='Harga Saham'))
         
-        # Tambah Garis MA-7
+        # add MA-7
         fig_candle.add_trace(go.Scatter(x=df_h_filter['Date'], y=df_h_filter['MA_7'], 
                                         line=dict(color='orange', width=2), name='Moving Average (7 Hari)'))
         
@@ -257,16 +247,16 @@ with tab2:
         if not df_b_filter.empty:
             rows_list = []
             
-            # Pastikan data terurut berdasarkan Tanggal dari yang terbaru
+            # sort to newest
             df_b_filter_sorted = df_b_filter.sort_values(by='Tanggal', ascending=False)
             
             for tanggal, group in df_b_filter_sorted.groupby('Tanggal', sort=False):
-                # Ambil data hari tersebut
+                # get today's data
                 g = group[['Tanggal', 'Judul_Berita', 'Sentimen', 'Skor_Compound']].copy()
                 g['Tanggal'] = g['Tanggal'].astype(str)
                 rows_list.extend(g.to_dict('records'))
                 
-                # Hitung rata-rata skor harian
+                # median score of the day
                 rata_harian = group['Skor_Compound'].mean()
                 if rata_harian > 0.05:
                     teks_sentimen = "🟢 SENTIMEN HARIAN POSITIF"
@@ -275,7 +265,7 @@ with tab2:
                 else:
                     teks_sentimen = "⚪ SENTIMEN HARIAN NETRAL"
                 
-                # Buat row summary dengan teks tersebut di kolom Judul_Berita
+                # summary row of the day
                 rows_list.append({
                     'Tanggal': '', 
                     'Judul_Berita': teks_sentimen, 
@@ -285,7 +275,7 @@ with tab2:
                 
             df_display = pd.DataFrame(rows_list)
             
-            # Fungsi styling untuk mewarnai baris summary
+            # summary row styling
             def row_style(row):
                 teks = str(row['Judul_Berita'])
                 if "SENTIMEN HARIAN POSITIF" in teks:
@@ -296,7 +286,7 @@ with tab2:
                     return ["background-color: rgba(108, 117, 125, 0.2); color: #9ca3af; font-weight: bold;"] * len(row)
                 return [""] * len(row)
             
-            # Karena tipe kolom Skor_Compound menjadi float dengan ada data None/NaN, gunakan style.format
+            # using style.format because it's a float data
             styled_df = df_display.style.apply(row_style, axis=1).format(na_rep="")
             
             st.dataframe(styled_df, width='stretch', hide_index=True)
@@ -308,18 +298,18 @@ with tab3:
     st.markdown("Grafik ini membandingkan rata-rata skor sentimen berita harian dengan harga penutupan saham.")
     
     if not df_h_filter.empty and not df_b_filter.empty:
-        # Agregasi skor NLP rata-rata per hari
+        # median nlp score
         df_b_harian = df_b_filter.groupby('Tanggal')['Skor_Compound'].mean().reset_index()
-        # Gabung data harga dan sentimen
+        # merge stock and nlp data
         df_korelasi = pd.merge(df_h_filter, df_b_harian, left_on='Date', right_on='Tanggal', how='left')
         
-        # Bikin chart dengan dua axis (Y1 untuk harga, Y2 untuk skor NLP)
+        # create chart with two axis (Y1 for stock price, Y2 for nlp score)
         fig_corr = go.Figure()
         
-        # Axis 1: Harga Saham (Bar)
+        # Axis 1: stock price (Bar)
         fig_corr.add_trace(go.Bar(x=df_korelasi['Date'], y=df_korelasi['Close'], name='Harga Penutupan', opacity=0.6, marker_color='royalblue'))
         
-        # Axis 2: Skor Sentimen (Line)
+        # Axis 2: nlp score (Line)
         fig_corr.add_trace(go.Scatter(x=df_korelasi['Date'], y=df_korelasi['Skor_Compound'], name='Skor NLP', 
                                       yaxis='y2', mode='lines+markers', line=dict(color='red', width=3)))
         

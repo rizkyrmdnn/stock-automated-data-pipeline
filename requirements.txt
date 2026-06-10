@@ -1,10 +1,19 @@
+# Data Ingestion & APIs
 yfinance
+google-genai
+
+# Data Manipulation & Analysis
 pandas
 nltk
+
+# Database & Cloud Integration
 google-cloud-bigquery
 pandas-gbq
-tqdm
+google-auth
+
+# Data Visualization & UI
 streamlit
 plotly
-google-genai
-google-auth
+
+# Utility
+tqdm

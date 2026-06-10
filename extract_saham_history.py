@@ -3,8 +3,8 @@ import pandas as pd
 import pandas_gbq
 import os
 
-# INI BUAT NARIK DATA 5 TAHUN TERAKIR - JALANIN SEKALI AJA.
-# --- SETUP KUNCI GCP ---
+# FUNCTION TO PULL DATA FROM 5 YEARS BACK. RUN ONCE.
+# --- 1. GCP AUTHENTICATION ---
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
 
 tickers = ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL']
@@ -12,25 +12,25 @@ semua_data = []
 
 print("Mulai narik data harga historis (5 TAHUN TERAKHIR)...")
 
-# --- FASE EXTRACT ---
+# --- 2. EXTRACT FUNCTION ---
 for ticker in tickers:
     saham = yf.Ticker(ticker)
-    # Ambil data 5 tahun
+    # get data from 5 years back
     df_saham = saham.history(period="5y")
     df_saham['Ticker'] = ticker
     df_saham = df_saham.reset_index()
     semua_data.append(df_saham)
 
 final_df = pd.concat(semua_data, ignore_index=True)
-# Rapihin format tanggal
+# set date format
 final_df['Date'] = pd.to_datetime(final_df['Date']).dt.date
 
-# --- FASE LOAD KE BIGQUERY ---
+# --- 3. LOAD FUNCTION TO BIGQUERY ---
 id_project_gcp = 'skripsi-pipeline-saham' 
 tabel_tujuan = 'data_saham.tabel_harga'
 
 print("\nMengirim data historis 5 tahun ke BigQuery (Mungkin butuh waktu agak lama)...")
-# Gunakan 'replace' HANYA untuk inisialisasi awal ini, agar tabel ter-reset dengan data 5 tahun
+# use 'replace' only for first time to reset the table
 pandas_gbq.to_gbq(
     final_df, 
     destination_table=tabel_tujuan, 

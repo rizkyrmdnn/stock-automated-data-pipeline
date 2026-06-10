@@ -6,8 +6,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import os
 import time
 
-# --- 1. SETTING KUNCI GOOGLE CLOUD ---
-# Pastiin nama file json ini udah bener dan ada di folder utama (sejajar sama script ini)
+# --- 1. GCP AUTHENTICATION ---
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "kunci-gcp.json"
 
 nltk.download('vader_lexicon', quiet=True)
@@ -15,7 +14,7 @@ sia = SentimentIntensityAnalyzer()
 
 tickers = ['GOOGL', 'NVDA', 'VZ', 'TSLA', 'AAPL']
 
-# Dictionary keyword untuk memfilter berita supaya nggak salah masuk
+# dictionary keyword for filter news
 company_keywords = {
     'GOOGL': ['google', 'alphabet', 'googl'],
     'NVDA': ['nvidia', 'nvda'],
@@ -28,13 +27,13 @@ data_berita = []
 
 print("Mulai narik dan analisis berita...\n")
 
-# --- 2. FASE EXTRACT & TRANSFORM ---
+# --- 2. EXTRACT & TRANSFORM FUNCTION ---
 for ticker in tickers:
     print(f"Lagi proses berita untuk saham: {ticker}")
     saham = yf.Ticker(ticker)
     berita_list = saham.news
     
-    # Ambil keyword yang relevan buat saham ini
+    # get relevant keyword for the company
     keywords = company_keywords.get(ticker, [ticker.lower()])
     
     for berita in berita_list:
@@ -45,9 +44,9 @@ for ticker in tickers:
         
         teks_analisis = f"{judul}. {ringkasan}"
         
-        # FILTER: Pastikan ada keyword perusahaan di judul atau ringkasan
+        # FILTER: make sure the keyword in the title or summary
         if not any(kw in teks_analisis.lower() for kw in keywords):
-            continue # Skip berita ini
+            continue # skip this news
         
         skor = sia.polarity_scores(teks_analisis)
         skor_akhir = skor['compound']
@@ -73,18 +72,16 @@ df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 print(f"Jeda 5 detik biar ga kena rate limit Yahoo Finance...")
 time.sleep(5)
 
-# --- 3. FASE LOAD (KIRIM KE BIGQUERY) ---
+# --- 3. LOAD FUNCTION ---
 print("\nMulai siap-siap kirim data ke Google Cloud BigQuery...")
 
 
 id_project_gcp = 'skripsi-pipeline-saham' 
 tabel_tujuan = 'data_saham.tabel_sentimen'
 
-# Perintah untuk ngelempar dataframe ke Cloud
-# if_exists='append' artinya tiap script ini jalan besok-besok, datanya bakal nambah di bawahnya (nggak nimpa data lama)
-# Pakai pandas_gbq langsung sesuai saran dari warning-nya
+# function to throw dataframe to cloud
 pandas_gbq.to_gbq(
-    df_berita, # dataframe-nya dimasukin ke dalem kurung ini
+    df_berita, 
     destination_table=tabel_tujuan, 
     project_id=id_project_gcp, 
     if_exists='append'
