@@ -1,127 +1,247 @@
 [
     {
         "Ticker":"GOOGL",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"Oracle Backlog Swells Above Google, Microsoft: CEO Defends $95B Capex, Fresh Debt Raise As Stock Tumbles"
+        "pubDate":"2026-06-11",
+        "title":"Oracle Backlog Swells Above Google, Microsoft: CEO Defends $95B Capex, Fresh Debt Raise As Stock Tumbles"
     },
     {
         "Ticker":"GOOGL",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"Apollo & Blackstone Inc. (BX) Seal $35B Anthropic AI Deal"
+        "pubDate":"2026-06-11",
+        "title":"Apollo & Blackstone Inc. (BX) Seal $35B Anthropic AI Deal"
     },
     {
         "Ticker":"GOOGL",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"Should McDonald\u2019s AI Drive Thru Push and Safety Scrutiny Require Action From McDonald\u2019s (MCD) Investors?"
+        "pubDate":"2026-06-11",
+        "title":"Should McDonald\u2019s AI Drive Thru Push and Safety Scrutiny Require Action From McDonald\u2019s (MCD) Investors?"
     },
     {
         "Ticker":"GOOGL",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Alphabet (NasdaqGS:GOOGL) Valuation Check As Share Price Momentum Cools After Strong Year"
+        "pubDate":"2026-06-10",
+        "title":"Alphabet (NasdaqGS:GOOGL) Valuation Check As Share Price Momentum Cools After Strong Year"
     },
     {
         "Ticker":"NVDA",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"AI stocks: MANGOS ascends, replacing FAANG position"
+        "pubDate":"2026-06-10",
+        "title":"AI stocks: MANGOS ascends, replacing FAANG position"
     },
     {
         "Ticker":"NVDA",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"IREN\u2019s 5.8 GW Buildout And Nvidia Deal Reframe AI Growth Story"
+        "pubDate":"2026-06-11",
+        "title":"IREN\u2019s 5.8 GW Buildout And Nvidia Deal Reframe AI Growth Story"
     },
     {
         "Ticker":"VZ",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Verizon Communications (VZ) Rises As Market Takes a Dip: Key Facts"
+        "pubDate":"2026-06-10",
+        "title":"Verizon Communications (VZ) Rises As Market Takes a Dip: Key Facts"
     },
     {
         "Ticker":"VZ",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"VZ vs. ASTS: Which Connectivity Stock is the Better Buy?"
+        "pubDate":"2026-06-10",
+        "title":"VZ vs. ASTS: Which Connectivity Stock is the Better Buy?"
     },
     {
         "Ticker":"VZ",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Better Telecom Stock: Verizon or Rogers Communications?"
+        "pubDate":"2026-06-10",
+        "title":"Better Telecom Stock: Verizon or Rogers Communications?"
     },
     {
         "Ticker":"VZ",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"AST SpaceMobile Launches BlueBird Trio As Key Investor Turning Point"
+        "pubDate":"2026-06-10",
+        "title":"AST SpaceMobile Launches BlueBird Trio As Key Investor Turning Point"
     },
     {
         "Ticker":"VZ",
-        "Tanggal":"2026-06-09",
-        "Judul_Berita":"AST Rises. Space Stocks Are Volatile Ahead of the SpaceX IPO."
+        "pubDate":"2026-06-09",
+        "title":"AST Rises. Space Stocks Are Volatile Ahead of the SpaceX IPO."
     },
     {
         "Ticker":"TSLA",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"TSLA Stock Sinks As SpaceX IPO Nears \u2014 Analyst Says Investors Are Selling Tesla To Catch A Day-1 Pop In Next Musk Trade"
+        "pubDate":"2026-06-11",
+        "title":"TSLA Stock Sinks As SpaceX IPO Nears \u2014 Analyst Says Investors Are Selling Tesla To Catch A Day-1 Pop In Next Musk Trade"
     },
     {
         "Ticker":"TSLA",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"S&P 500, Nasdaq, Dow Futures Extend Slide As US-Iran Hormuz Tensions Flare Again, Inflation Data Stings: ORCL, DJT, SMCI, TSLA In Focus"
+        "pubDate":"2026-06-11",
+        "title":"S&P 500, Nasdaq, Dow Futures Extend Slide As US-Iran Hormuz Tensions Flare Again, Inflation Data Stings: ORCL, DJT, SMCI, TSLA In Focus"
     },
     {
         "Ticker":"TSLA",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"Cathie Wood Asks Elon Musk How Tesla Handles 'Parking And Traffic Violations' After The Robotaxi She Rode Gets $75 Ticket"
+        "pubDate":"2026-06-11",
+        "title":"Cathie Wood Asks Elon Musk How Tesla Handles 'Parking And Traffic Violations' After The Robotaxi She Rode Gets $75 Ticket"
     },
     {
         "Ticker":"TSLA",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"Why SpaceX (SPCX) Could Trade Like Tesla On Steroids"
+        "pubDate":"2026-06-11",
+        "title":"Why SpaceX (SPCX) Could Trade Like Tesla On Steroids"
     },
     {
         "Ticker":"TSLA",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"S&P 500, Nasdaq, Dow Drop As US-Iran War Jitters, Inflation Risk Spur Tech Selloffs  \u2014 SMCI, AMZN, OPEN, SEGG, TSLA In Focus"
+        "pubDate":"2026-06-10",
+        "title":"S&P 500, Nasdaq, Dow Drop As US-Iran War Jitters, Inflation Risk Spur Tech Selloffs  \u2014 SMCI, AMZN, OPEN, SEGG, TSLA In Focus"
     },
     {
         "Ticker":"TSLA",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Here's Why Tesla (TSLA) Fell More Than Broader Market"
+        "pubDate":"2026-06-10",
+        "title":"Here's Why Tesla (TSLA) Fell More Than Broader Market"
     },
     {
         "Ticker":"TSLA",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"TSLA Stock Watches SpaceX IPO While Cheapest Cybertruck Hits Driveways After Long Wait"
+        "pubDate":"2026-06-10",
+        "title":"TSLA Stock Watches SpaceX IPO While Cheapest Cybertruck Hits Driveways After Long Wait"
     },
     {
         "Ticker":"AAPL",
-        "Tanggal":"2026-06-08",
-        "Judul_Berita":"Tech stocks today: Chip stocks pull back, Trump says he's meeting with AI executives"
+        "pubDate":"2026-06-08",
+        "title":"Tech stocks today: Chip stocks pull back, Trump says he's meeting with AI executives"
     },
     {
         "Ticker":"AAPL",
-        "Tanggal":"2026-06-11",
-        "Judul_Berita":"Jim Cramer Describes Bitcoin, Gold As 'Bad Money' Getting Dumped For SpaceX \u2014 But 'Good Money' Apple And Nvidia Not Spared Either"
+        "pubDate":"2026-06-11",
+        "title":"Jim Cramer Describes Bitcoin, Gold As 'Bad Money' Getting Dumped For SpaceX \u2014 But 'Good Money' Apple And Nvidia Not Spared Either"
     },
     {
         "Ticker":"AAPL",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Morgan Stanley revamps Apple stock target after key event"
+        "pubDate":"2026-06-10",
+        "title":"Morgan Stanley revamps Apple stock target after key event"
     },
     {
         "Ticker":"AAPL",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Apple Got It Right This Time"
+        "pubDate":"2026-06-10",
+        "title":"Apple Got It Right This Time"
     },
     {
         "Ticker":"AAPL",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Apple Spent Billions Chasing A Self-Driving Car, Then Walked Away\u2014Waymo Now Bought The Test Site For $220 Million"
+        "pubDate":"2026-06-10",
+        "title":"Apple Spent Billions Chasing A Self-Driving Car, Then Walked Away\u2014Waymo Now Bought The Test Site For $220 Million"
     },
     {
         "Ticker":"AAPL",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Apple Just Introduced Next-Generation Siri AI at WWDC. Why That Might Not Be Enough to Give AAPL Stock a Boost."
+        "pubDate":"2026-06-10",
+        "title":"Apple Just Introduced Next-Generation Siri AI at WWDC. Why That Might Not Be Enough to Give AAPL Stock a Boost."
     },
     {
         "Ticker":"AAPL",
-        "Tanggal":"2026-06-10",
-        "Judul_Berita":"Apple Bets Big on Siri AI. Investors Aren\u2019t Buying It."
+        "pubDate":"2026-06-10",
+        "title":"Apple Bets Big on Siri AI. Investors Aren\u2019t Buying It."
+    },
+    {
+        "Ticker":"GOOGL",
+        "pubDate":"2026-06-11",
+        "title":"How Navan gained market share and climbed back to its IPO price"
+    },
+    {
+        "Ticker":"GOOGL",
+        "pubDate":"2026-06-12",
+        "title":"Hitachi Deepens Google And Intel Ties To Power Industrial AI Growth"
+    },
+    {
+        "Ticker":"GOOGL",
+        "pubDate":"2026-06-12",
+        "title":"Anthropic Is Worth $965 Billion and Still Needs Google to Pay Its Rent"
+    },
+    {
+        "Ticker":"GOOGL",
+        "pubDate":"2026-06-12",
+        "title":"Is Alphabet Inc. (GOOGL) One of the Best Forever Stocks to Buy on $85B Capital Raise?"
+    },
+    {
+        "Ticker":"GOOGL",
+        "pubDate":"2026-06-12",
+        "title":"Alphabet\u2019s $80 Billion Flex"
+    },
+    {
+        "Ticker":"GOOGL",
+        "pubDate":"2026-06-12",
+        "title":"American Airlines (AAL) Aligns Governance, Equity Plan and Google SAF Deal Is the Strategy Coherent?"
+    },
+    {
+        "Ticker":"GOOGL",
+        "pubDate":"2026-06-12",
+        "title":"IonQ Faces Scrutiny As Controversy And Funding Snub Test Investor Trust"
+    },
+    {
+        "Ticker":"NVDA",
+        "pubDate":"2026-06-12",
+        "title":"NVDA Stock Heads For Fourth Week In Red: Report Says Nvidia Has Begun Vera Chip Pitches To Chinese Customers"
+    },
+    {
+        "Ticker":"NVDA",
+        "pubDate":"2026-06-12",
+        "title":"TSMC boss frets about shortages of talent, water in Taiwan"
+    },
+    {
+        "Ticker":"NVDA",
+        "pubDate":"2026-06-12",
+        "title":"Exclusive-Nvidia begins Vera CPU sales pitch to Chinese clients, sources say"
+    },
+    {
+        "Ticker":"VZ",
+        "pubDate":"2026-06-12",
+        "title":"Verizon\u2019s AI Disaster Tools Highlight Network Resilience And Valuation Gap"
+    },
+    {
+        "Ticker":"VZ",
+        "pubDate":"2026-06-11",
+        "title":"Verizon (VZ) Unveils AI-Powered Digital Twin Technology for Hurricane Response"
+    },
+    {
+        "Ticker":"VZ",
+        "pubDate":"2026-06-11",
+        "title":"1 Verizon Insider Sells 80% of Her Stock in $3 Million Deal. For Everyone Else, VZ Is a Good Buy Now."
+    },
+    {
+        "Ticker":"VZ",
+        "pubDate":"2026-06-10",
+        "title":"Verizon Communications (VZ) Rises As Market Takes a Dip: Key Facts"
+    },
+    {
+        "Ticker":"VZ",
+        "pubDate":"2026-06-10",
+        "title":"VZ vs. ASTS: Which Connectivity Stock is the Better Buy?"
+    },
+    {
+        "Ticker":"VZ",
+        "pubDate":"2026-06-10",
+        "title":"Better Telecom Stock: Verizon or Rogers Communications?"
+    },
+    {
+        "Ticker":"TSLA",
+        "pubDate":"2026-06-11",
+        "title":"Why Elon Musk is the 'king of big ideas'"
+    },
+    {
+        "Ticker":"TSLA",
+        "pubDate":"2026-06-12",
+        "title":"After record IPO, Musk's SpaceX faces next test in market debut"
+    },
+    {
+        "Ticker":"TSLA",
+        "pubDate":"2026-06-12",
+        "title":"JPMorgan Echoes Why Tesla, Inc. (TSLA) is One of the Best Forever Stocks to Buy"
+    },
+    {
+        "Ticker":"AAPL",
+        "pubDate":"2026-06-11",
+        "title":"Siri upgrades show promise, but questions remain"
+    },
+    {
+        "Ticker":"AAPL",
+        "pubDate":"2026-06-12",
+        "title":"AI Integration and iPhone Growth Assert Apple Inc. (AAPL) as One of the Best Forever Stocks to Buy"
+    },
+    {
+        "Ticker":"AAPL",
+        "pubDate":"2026-06-11",
+        "title":"Does Apple Stock Have More Upside?"
+    },
+    {
+        "Ticker":"AAPL",
+        "pubDate":"2026-06-11",
+        "title":"Here's Why Apple (AAPL) Gained But Lagged the Market Today"
+    },
+    {
+        "Ticker":"AAPL",
+        "pubDate":"2026-06-11",
+        "title":"Apple Inc. (AAPL) Is A Top Stock In Ken Griffin\u2019s Portfolio"
     }
 ]

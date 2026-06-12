@@ -41,12 +41,12 @@ for ticker in tickers:
             
         data_berita.append({
             'Ticker': ticker,
-            'Tanggal': tanggal,
-            'Judul_Berita': judul
+            'pubDate': tanggal,
+            'title': judul
         })
 
 df_berita = pd.DataFrame(data_berita)
-df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
+df_berita['pubDate'] = pd.to_datetime(df_berita['pubDate']).dt.date
 
 print(f"Jeda 5 detik biar ga kena rate limit Yahoo Finance...")
 time.sleep(5)
@@ -60,13 +60,14 @@ if os.path.exists(json_file):
         existing_df = pd.read_json(json_file)
         # Filter existing columns to match the new schema in case the old JSON had extra columns
         if not existing_df.empty:
-            existing_df = existing_df[['Ticker', 'Tanggal', 'Judul_Berita']]
+            existing_df = existing_df.rename(columns={'Tanggal': 'pubDate', 'Judul_Berita': 'title'})
+            existing_df = existing_df[['Ticker', 'pubDate', 'title']]
         df_berita = pd.concat([existing_df, df_berita], ignore_index=True)
     except Exception as e:
         print(f"Gagal membaca file JSON lama: {e}. Membuat file baru.")
 
 # Convert dates to string so they serialize cleanly
-df_berita['Tanggal'] = df_berita['Tanggal'].astype(str)
+df_berita['pubDate'] = df_berita['pubDate'].astype(str)
 
 df_berita.to_json(
     json_file, 
