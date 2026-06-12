@@ -24,6 +24,9 @@ final_df = pd.concat(semua_data, ignore_index=True)
 # set date format
 final_df['Date'] = pd.to_datetime(final_df['Date']).dt.date
 
+# --- TRANSFORM FUNCTION ---
+final_df = final_df.drop(columns=['Dividends', 'Stock Splits'], errors='ignore')
+
 # --- LOAD TO BIGQUERY FUNCTION ---
 id_project_gcp = 'skripsi-pipeline-saham' 
 tabel_tujuan = 'data_saham.tabel_harga'
