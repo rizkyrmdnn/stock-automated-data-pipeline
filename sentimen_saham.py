@@ -75,7 +75,6 @@ time.sleep(5)
 # --- 3. LOAD FUNCTION ---
 print("\nMulai siap-siap kirim data ke Google Cloud BigQuery...")
 
-
 id_project_gcp = 'skripsi-pipeline-saham' 
 tabel_tujuan = 'data_saham.tabel_sentimen'
 

@@ -46,7 +46,7 @@ for ticker in tickers:
         })
 
 df_berita = pd.DataFrame(data_berita)
-df_berita['pubDate'] = pd.to_datetime(df_berita['pubDate']).dt.date
+
 
 print(f"Jeda 5 detik biar ga kena rate limit Yahoo Finance...")
 time.sleep(5)
