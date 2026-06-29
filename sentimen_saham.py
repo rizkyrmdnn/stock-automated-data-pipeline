@@ -67,6 +67,13 @@ for ticker in tickers:
         })
 
 df_berita = pd.DataFrame(data_berita)
+
+#Data Quality Assurance
+df_berita.replace('', pd.NA, inplace=True)
+df_berita = df_berita.dropna(subset=['Judul', 'Ringkasan'])
+
+df_berita = df_berita.drop_duplicates(subset=['Judul'])
+
 df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
 
 print(f"Jeda 5 detik biar ga kena rate limit Yahoo Finance...")
