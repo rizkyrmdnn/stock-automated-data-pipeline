@@ -18,6 +18,8 @@ for ticker in tickers:
     df_saham = saham.history(period="1d") 
     df_saham['Ticker'] = ticker
     df_saham = df_saham.reset_index()
+    df_saham = df_saham.dropna(subset=['Close'])
+    df_saham = df_saham.drop_duplicates(subset=['Date', 'Ticker'])
     semua_data.append(df_saham)
 
 final_df = pd.concat(semua_data, ignore_index=True)
