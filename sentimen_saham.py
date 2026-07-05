@@ -69,9 +69,11 @@ for ticker in tickers:
 df_berita = pd.DataFrame(data_berita)
 
 #Data Quality Assurance
+# 1. replace empty string to NA
 df_berita.replace('', pd.NA, inplace=True)
+# 2. drop missing value
 df_berita = df_berita.dropna(subset=['Judul', 'Ringkasan'])
-
+# 3. drop duplicate rows based on 'Judul'
 df_berita = df_berita.drop_duplicates(subset=['Judul'])
 
 df_berita['Tanggal'] = pd.to_datetime(df_berita['Tanggal']).dt.date
