@@ -17,3 +17,8 @@ plotly
 
 # Utility
 tqdm
+
+# testing model
+scikit-learn
+matplotlib
+seaborn

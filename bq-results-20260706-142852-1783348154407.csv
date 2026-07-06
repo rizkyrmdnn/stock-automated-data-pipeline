@@ -1,0 +1,101 @@
+Ticker,Tanggal,Judul_Berita,Skor_Compound,Sentimen,Sentimen_manual
+TSLA,7/5/2026,$4.1 Billion Deal Shows Why Ferrari and Tesla Are Ditching Copper for a Substitute,0.5994,Positif,Positif
+AAPL,7/5/2026,"Dow Jones Futures: Techs Jump With Apple, SpaceX, Sandisk, Robinhood In Focus",0.3612,Positif,Positif
+TSLA,7/5/2026,"Tesla vs BYD: Two Paths to EV Leadership, One Winner",0.8658,Positif,Positif
+TSLA,7/5/2026,Tesla's $1.4 trillion valuation rests on what happens next in one city,0.2023,Positif,Positif
+GOOGL,7/5/2026,Wall Street Is Buzzing About Alphabet Joining the Dow. Income Investors Should Be Looking at This Stock Instead.,0,Netral,Netral
+TSLA,7/5/2026,Meta and Tesla Are Suddenly Worth the Same $1.48 Trillion. Which Stock Wins from Here?,0.7906,Positif,Positif
+GOOGL,7/5/2026,Where Will Alphabet Stock Be in 5 Years?,0.6381,Positif,Positif
+NVDA,7/5/2026,The First Half of 2026 Is Over. These 2 Spectacular Artificial Intelligence (AI) Stocks Can Soar in the Second Half.,0.4767,Positif,Positif
+GOOGL,7/5/2026,This Is the One AI Stock I Can’t Stop Buying,-0.5267,Negatif,Positif
+GOOGL,7/5/2026,Alphabet Stock Has Doubled in a Year. Is It Too Late to Buy?,0.4137,Positif,Positif
+TSLA,7/5/2026,Elon Musk Says Optimus Production Will Be 'Extremely Slow' in the Beginning: 'This is Not Like Making a Car',-0.2755,Negatif,Negatif
+NVDA,7/5/2026,AMD Stock and Intel Crushed Nvidia in the First Half. Here's My Prediction for the Second Half.,-0.4215,Negatif,Negatif
+GOOGL,7/5/2026,The AI Boom Runs on Debt. Global Regulators Want to Shut Off the Tap,0.4215,Positif,Positif
+GOOGL,7/5/2026,Google Just Launched 2 New AI Models. What That Means for GOOGL Stock.,0.7003,Positif,Positif
+TSLA,7/5/2026,"California vs. Elon Musk: Tesla Snubbed as New EV Incentives Boost Rivian, Lucid",0.6808,Positif,Positif
+AAPL,7/5/2026,"Foxconn second-quarter revenue jumps, company cautions on geopolitics",0.9403,Positif,Positif
+GOOGL,7/5/2026,Analyst shares 5 takes on the Neocloud vs Hyperscaler opportunities for Meta,0.5859,Positif,Positif
+GOOGL,7/5/2026,Alphabet (GOOGL) Faces Final €4.1b Android Antitrust Ruling In Europe,0.3818,Positif,Netral
+AAPL,7/5/2026,3 No-Brainer Stocks to Buy in July and Hold Forever,0.743,Positif,Positif
+GOOGL,7/5/2026,"SpaceX, Alphabet, and SK Hynix Are Sending a Big Signal to the Market, and No One Is Talking About It",-0.296,Negatif,Negatif
+GOOGL,7/4/2026,"Bill Ackman reveals why he still likes Alphabet, Amazon, and Meta stocks",0.6908,Positif,Positif
+AAPL,7/4/2026,Apple (AAPL) Plans 10 Million Foldables And An iPhone Ultra Push,-0.0772,Negatif,Negatif
+AAPL,7/4/2026,Evercore ISI Maintains Outperform Rating on Apple (AAPL) Stock,0.743,Positif,Positif
+TSLA,7/4/2026,Bill Ackman Drives a Tesla: Here's Why He Won't Buy the Stock,0.5267,Positif,Negatif
+GOOGL,7/4/2026,Why Alphabet Inc (GOOGL) Is Rationing Gemini Access for Customers,0.4588,Positif,Positif
+TSLA,7/4/2026,Here’s Why Tesla Inc. (TSLA) is a Top Robotics Stock to Buy Amid Robotaxi and Optimus Developments,0.6808,Positif,Positif
+AAPL,7/4/2026,Tennessee deputy spent seized drug money on Apple gear for his family — now he owes $339K in pension clawbacks,0,Netral,Netral
+GOOGL,7/4/2026,Warren Buffett's Berkshire Hathaway Owns $41 Billion of Alphabet Stock: Here Are 3 Possible Reasons Why,0.4767,Positif,Positif
+TSLA,7/4/2026,Tesla (TSLA) Expands Robotaxi Service To Miami With Cybercabs On Public Roads,0.5187,Positif,Positif
+GOOGL,7/4/2026,Argus Maintains Buy Rating on Alphabet (GOOGL) Stock,0.7845,Positif,Positif
+GOOGL,7/4/2026,Reddit (RDDT) Eyes Higher AI Data Fees And Launches Shopping Ad Tools,0.6249,Positif,Positif
+AAPL,7/4/2026,Microsoft (MSFT): One of the Best AI and Technology Stocks to Buy Now,0.8934,Positif,Netral
+NVDA,7/4/2026,Nvidia (NVDA) Backs Verkada And Brings In A Microsoft Veteran To Lead Sales,0.3818,Positif,Positif
+GOOGL,7/4/2026,"1 Unstoppable Stock to Buy Before It Joins Google, Apple, Microsoft, and Nvidia in the $3 Trillion Club",0.2263,Positif,Positif
+GOOGL,7/4/2026,$750 Billion AI Spending Wave: Should You Buy These 3 AI Infrastructure Stocks?,0.168,Positif,Positif
+AAPL,7/4/2026,Apple's 2027 hardware refresh sends Wall Street a warning,-0.34,Negatif,Negatif
+NVDA,7/4/2026,"Nvidia Stock Is Nearly Flat for 2026. Time to Cash Out, or Load Up on Shares?",0,Netral,Netral
+AAPL,7/4/2026,"Apple Is Reportedly Planning 5 New iPhones -- Including a $2,500 Foldable. Here's What It Means for the Stock.",0,Netral,Netral
+GOOGL,7/3/2026,Here’s Why Jim Cramer Thinks Alphabet Is Still Cheap,-0.0772,Negatif,Negatif
+TSLA,7/3/2026,"Elon Musk Has Mojo Back, As Tesla Deliveries Skyrocket",0.5423,Positif,Positif
+TSLA,7/3/2026,Worried About Tesla's 7% Slump Post Solid Q2 Deliveries? Grab These ETFs,0.0772,Positif,Netral
+NVDA,7/3/2026,Apple Is About 4% Away From Overtaking Nvidia as the World's Most Valuable Company. Could It Happen This Month?,0.5256,Positif,Positif
+AAPL,7/3/2026,Jim Cramer’s Latest Thought on Apple Inc. (AAPL),0.3818,Positif,Positif
+AAPL,7/3/2026,Saylor makes a bold claim about MSTR and it involves Apple and Nvidia,0.7096,Positif,Netral
+TSLA,7/3/2026,"Meet the Major Artificial Intelligence (AI) CPU Player That Just Joined Nvidia, Tesla, and Palantir as One of the Most Popular Stocks on Robinhood",0.7346,Positif,Positif
+AAPL,7/3/2026,"Dow Jones Futures: Techs' Rise Signal AI Trend Isn't Over; Apple, Robinhood Flash Buy Signals",0.6542,Positif,Positif
+TSLA,7/3/2026,Jim Cramer on Tesla: “I Think It’ll Be Bought By SpaceX Sooner Rather Than Later”,-0.3612,Negatif,Negatif
+GOOGL,7/3/2026,Better Artificial Intelligence (AI) Stock: Alphabet vs. Micron Technology (the Winner May Surprise You),0.9153,Positif,Positif
+GOOGL,7/3/2026,"Dear Google Stock Fans, Mark Your Calendars for July 22",0.3818,Positif,Positif
+VZ,7/3/2026,AT&T vs Verizon: The Better Dividend Stock For 2026,0.8442,Positif,Positif
+VZ,7/3/2026,Verizon Communications Inc. (VZ) is Attracting Investor Attention: Here is What You Should Know,0.6705,Positif,Positif
+TSLA,7/3/2026,Tesla Vs. SpaceX: Here’s Which Will Outperform the Other by the End of July,0.3182,Positif,Positif
+NVDA,7/2/2026,Nvidia (NVDA) Stock Moves -1.39%: What You Should Know,0,Netral,Netral
+TSLA,7/2/2026,"Dow Jones Futures: Dow Hits High But AI Tumbles; Apple, Robinhood Are Buys As Tesla, Sandisk Dive",0.8765,Positif,Positif
+VZ,7/2/2026,AT&T Stock’s Bad Week Just Keeps Getting Worse,-0.7964,Negatif,Negatif
+VZ,7/2/2026,Starlink Dominates Internet From Space. Can It Disrupt AT&T and Verizon on the Ground?,0.0258,Netral,Netral
+TSLA,7/2/2026,"Stock Market Today: Dow Runs 590 Points To New High But Meta, Chip, Optical Stocks Slammed",-0.5504,Negatif,Negatif
+GOOGL,7/2/2026,Did the World’s Best AI Lab Really Sell to Google for Just $5 Million?,0.9254,Positif,Positif
+GOOGL,7/2/2026,"A warning sign about AI’s real cost, courtesy of Google and Amazon",0.6124,Positif,Negatif
+VZ,7/2/2026,Is Verizon Communications Inc. (VZ) Stock Positioned for Growth After $4B International Enterprise Partnership?,0.8834,Positif,Positif
+NVDA,7/2/2026,"Amdocs, (DOX), 1Finity, Supermicro (SMCI) Validate AI-RAN Blueprint with NVIDIA (NVDA) Infrastructure",0.8885,Positif,Positif
+VZ,7/2/2026,Better High-Yield Dividend Stock: Verizon or AT&T?,0.5859,Positif,Positif
+TSLA,7/2/2026,Auto & Transport Roundup: Market Talk,0,Netral,Netral
+GOOGL,7/2/2026,Veteran Bank Tweaks Alphabet Price Target for the Rest of 2026,0.431,Positif,Positif
+TSLA,7/2/2026,"Tesla Sales Jump, but Stock Suffers Worst Day Since Last July",-0.8402,Negatif,Negatif
+VZ,7/2/2026,What to Expect From Verizon Communications' Next Quarterly Earnings Report,0.4404,Positif,Netral
+TSLA,7/2/2026,"Tesla, Rivian, Strategy, Moderna, Sandisk, Blue Owl, and More Stocks That Explain Today’s Market",0.5423,Positif,Netral
+VZ,7/1/2026,Can Verizon's Global Connectivity Expansion With BT Aid the Stock?,0,Netral,Netral
+AAPL,7/1/2026,"AAPL Stock Slides After-Hours — Apple Eyeing Pentagon-Blacklisted Chinese Chipmakers As Memory Crunch Bites, Says Report",0,Netral,Netral
+AAPL,7/1/2026,Apple negotiates with blacklisted Chinese chipmakers amid AI-driven memory crunch,0.5423,Positif,Positif
+TSLA,7/1/2026,Tesla Stock Rides a 12% Weekly Gain Into a High-Stakes Delivery Report,0.5267,Positif,Positif
+AAPL,7/1/2026,Apple (AAPL) Rises As Market Takes a Dip: Key Facts,0.1027,Positif,Positif
+TSLA,7/1/2026,"Stock market today: Dow notches fresh record, Nasdaq slides as Tesla sinks, semiconductors extend decline",0.6124,Positif,Positif
+TSLA,7/1/2026,TSLA Stock Up for Fourth Straight Day Before Thursday Deliveries Report — Wall Street Expects Year-On-Year Growth,0.7184,Positif,Positif
+TSLA,7/1/2026,SpaceX Got a Buy Call From a Tesla Bull. Why the Stock Plummeted.,0.7506,Positif,Positif
+AAPL,7/1/2026,Apple Warned by Russia Over Local Apps,-0.0772,Negatif,Negatif
+VZ,7/1/2026,Pfizer vs Verizon Communications: Which High-Yielding Dividend Stock Is the Better Buy?,0.8402,Positif,Positif
+VZ,7/1/2026,Alphabet stock rally exposes Google’s unusual AI problem,0.5994,Positif,Positif
+NVDA,7/1/2026,Cboe Seeks to List Prediction Market Type Options on Earnings Metrics,0.7964,Positif,Positif
+TSLA,7/1/2026,A Big Short Gets Bigger,-0.128,Negatif,Negatif
+VZ,7/1/2026,SpaceX Threat Wipes Out $46B in Market Value From ‘Big Three’ Telecoms—And the Pain May Not Be Over,-0.7869,Negatif,Negatif
+GOOGL,7/1/2026,Alphabet Inc. (GOOG) Advances While Market Declines: Some Information for Investors,0,Netral,Netral
+VZ,7/1/2026,Verizon (VZ) Sees Severance Charge from Headcount Reductions,0.1027,Positif,Negatif
+TSLA,7/1/2026,"Dow Jones Futures: Meta Jumps But Hits SpaceX, Micron; Tesla, Jobs Report Ahead",0,Netral,Netral
+TSLA,6/28/2026,Dow Jones Futures Rise On U.S.-Iran News; Market At Tipping Point,-0.2023,Negatif,Negatif
+GOOGL,6/28/2026,"SpaceX, Tesla, and Alphabet All Fall in a Broad Tech Rout. Should You Rebalance Your Portfolio?",-0.4215,Negatif,Negatif
+VZ,6/28/2026,Verizon (VZ) Faces A New Rival If Starlink Launches U.S. Mobile Service,0.2263,Positif,Negatif
+TSLA,6/28/2026,"Elon Musk Was First Trillionaire, Prediction Markets Pick This Magnificent Seven CEO To Be Second To Join Elite Club",0.7269,Positif,Netral
+NVDA,6/28/2026,Wall Street Sees SpaceX Surpassing Nvidia in Long-Term Valuation,0,Netral,Positif
+AAPL,6/28/2026,"Bernie Sanders Says MacBook, iPad Price Rise An Example Of Tim Cook's 'Corporate Greed: Here's How Much You'll Pay Now",-0.128,Negatif,Negatif
+AAPL,6/28/2026,Apple just billed you for the AI buildout you never asked for,0.4767,Positif,Positif
+TSLA,6/28/2026,"SpaceX, Tesla, and Alphabet All Fall in a Broad Tech Rout. Should You Rebalance Your Portfolio?",-0.4215,Negatif,Negatif
+GOOGL,6/28/2026,Alphabet Pulled Back Hard. Here Are My Top 3 Megacaps to Buy on the Dip.,-0.0341,Netral,Netral
+GOOGL,6/28/2026,"This Artificial Intelligence (AI) Cloud Stock Has Crushed Amazon, Microsoft, and Google in 2026. It Can Continue Skyrocketing After 184% Gains",0.6808,Positif,Positif
+NVDA,6/28/2026,Nokia (HLSE:NOKIA) Partners With Nvidia To Build AI RAN 6G Networks,0,Netral,Netral
+NVDA,6/28/2026,This Nvidia-Backed Artificial Intelligence (AI) Infrastructure Stock Has Multibagger Potential. It Is Trading at an Incredibly Attractive Valuation Right Now,0.861,Positif,Positif
+AAPL,6/28/2026,Why Apple’s WWDC 2026 shows a material positive reset of criticized AI strategy?,0.8834,Positif,Positif
+AAPL,6/28/2026,Even Apple supply chain maestro Tim Cook couldn’t dodge the memory chip ‘RAM-ageddon’ crisis. Here’s why PC prices are soaring this summer,-0.6369,Negatif,Negatif
+NVDA,6/28/2026,Is Micron Stock the New Nvidia?,0.5859,Positif,Positif
+TSLA,6/28/2026,I Let Wayve’s AI Car Drive Me Through London’s Busiest Streets,0,Netral,Netral
