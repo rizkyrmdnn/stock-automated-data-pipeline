@@ -82,17 +82,40 @@ print(f"Jeda 5 detik biar ga kena rate limit Yahoo Finance...")
 time.sleep(5)
 
 # --- 3. LOAD FUNCTION ---
-print("\nMulai siap-siap kirim data ke Google Cloud BigQuery...")
-
 id_project_gcp = 'skripsi-pipeline-saham' 
 tabel_tujuan = 'data_saham.tabel_sentimen'
 
-# function to throw dataframe to cloud
-pandas_gbq.to_gbq(
-    df_berita, 
-    destination_table=tabel_tujuan, 
-    project_id=id_project_gcp, 
-    if_exists='append'
-)
+# Deduplicate against existing BigQuery data (Approach B)
+print("Memeriksa berita yang sudah ada di BigQuery untuk menghindari duplikasi...")
+try:
+    # Query titles from the last 10 days to check against
+    query_existing = f"""
+    SELECT DISTINCT Judul_Berita 
+    FROM `{id_project_gcp}.{tabel_tujuan}` 
+    WHERE Tanggal >= DATE_SUB(CURRENT_DATE(), INTERVAL 10 DAY)
+    """
+    df_existing = pandas_gbq.read_gbq(query_existing, project_id=id_project_gcp)
+    
+    if not df_existing.empty:
+        existing_titles = set(df_existing['Judul_Berita'].tolist())
+        initial_count = len(df_berita)
+        df_berita = df_berita[~df_berita['Judul_Berita'].isin(existing_titles)]
+        new_count = len(df_berita)
+        print(f"Ditemukan {new_count} berita baru dari total {initial_count} berita yang ditarik.")
+    else:
+        print("Tabel BigQuery kosong atau tidak ada data dalam 10 hari terakhir.")
+except Exception as e:
+    print(f"Gagal memeriksa duplikasi ke BigQuery (mungkin tabel belum ada atau kosong): {e}")
 
-print("\n--- YEAAY! DATA SUKSES MENDARAT DI BIGQUERY! ---")
+# function to throw dataframe to cloud
+if not df_berita.empty:
+    print("\nMulai siap-siap kirim data ke Google Cloud BigQuery...")
+    pandas_gbq.to_gbq(
+        df_berita, 
+        destination_table=tabel_tujuan, 
+        project_id=id_project_gcp, 
+        if_exists='append'
+    )
+    print("\n--- YEAAY! DATA SUKSES MENDARAT DI BIGQUERY! ---")
+else:
+    print("\n--- TIDAK ADA DATA BARU UNTUK DIKIRIM KE BIGQUERY ---")

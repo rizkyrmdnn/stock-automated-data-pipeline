@@ -17,11 +17,11 @@ dataset = "data_saham"
 queries = [
     f"""
     CREATE OR REPLACE TABLE `{project_id}.{dataset}.tabel_sentimen` AS 
-    SELECT * FROM `{project_id}.{dataset}.tabel_sentimen`
+    SELECT DISTINCT * FROM `{project_id}.{dataset}.tabel_sentimen`
     """,
     f"""
     CREATE OR REPLACE TABLE `{project_id}.{dataset}.tabel_harga` AS 
-    SELECT * FROM `{project_id}.{dataset}.tabel_harga`
+    SELECT DISTINCT * FROM `{project_id}.{dataset}.tabel_harga`
     """
 ]
 
