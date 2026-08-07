@@ -90,16 +90,16 @@ with st.sidebar:
         label_visibility="collapsed"
     )
     
-    # Tambahkan ruang kosong agar kalender tidak terpotong atau lompat ke atas
+    # Jumping calendar fix
     st.markdown("<div style='height: 380px;'></div>", unsafe_allow_html=True)
 
-# Validasi jika user belum milih rentang waktu lengkap (start & end)
+# Validate if user haven't choose start & end date
 if len(rentang_tanggal) == 2:
     start_date, end_date = rentang_tanggal
 else:
     start_date, end_date = rentang_tanggal[0], rentang_tanggal[0]
 
-# Saring data sesuai pilihan ticker & tanggal
+# Filter data according to ticker & date range
 df_h_filter = df_harga[(df_harga['Ticker'] == pilih_saham) & 
                        (df_harga['Date'] >= start_date) & 
                        (df_harga['Date'] <= end_date)].sort_values('Date').copy()
@@ -108,11 +108,11 @@ df_b_filter = df_berita[(df_berita['Ticker'] == pilih_saham) &
                         (df_berita['Tanggal'] >= start_date) & 
                         (df_berita['Tanggal'] <= end_date)].copy()
 
-# Kalkulasi Moving Average (MA) 7 Hari untuk DSS
+# Calculate Moving Average (MA) 7 Days for DSS
 if not df_h_filter.empty:
     df_h_filter['MA_7'] = df_h_filter['Close'].rolling(window=7).mean()
 
-# --- 6. FUNGSI AI SUMMARY ---
+# --- 6. AI SUMMARY FUNCTION ---
 @st.cache_data(ttl=3600)
 def dapatkan_ringkasan_gemini(nama_saham, df_berita):
     if df_berita.empty:
@@ -129,7 +129,7 @@ def dapatkan_ringkasan_gemini(nama_saham, df_berita):
     Gunakan bahasa Indonesia yang profesional namun mudah dipahami.
     """
     
-    # Mekanisme Auto-Retry (Maksimal 3 kali percobaan)
+    # Auto-Retry (Max 3 attempts)
     maksimal_coba = 3
     for percobaan in range(maksimal_coba):
         try:
@@ -140,13 +140,13 @@ def dapatkan_ringkasan_gemini(nama_saham, df_berita):
             return response.text
         except Exception as e:
             error_msg = str(e).lower()
-            # Kalau error-nya karena server sibuk (503) atau quota habis (429)
+            # If error is server is busy (503) or quota is full (429)
             if "503" in error_msg or "429" in error_msg or "demand" in error_msg:
                 if percobaan < maksimal_coba - 1:
-                    time.sleep(2) # Tunggu 2 detik sebelum nyoba lagi
-                    continue # Looping nyoba tembak API lagi
+                    time.sleep(2) # Wait 2 seconds before trying again
+                    continue # Looping trying to hit the API again
             
-            # Kalau gagal terus sampai 3 kali, atau errornya beda
+            # If failed 3 times
             return f"Sistem AI sedang sibuk. Mohon coba lagi nanti. (Error log: {e})"
 
 # --- 7. HEADER & KPI SCORECARD ---
@@ -155,7 +155,7 @@ with open("assets/icons/analisis-saham.png", "rb") as image_file:
 st.title(f"![icon](data:image/png;base64,{icon_analisis}) Analisis Saham: {pilih_saham}")
 st.markdown("*Analisis Prediktif & Sentimen Berita Menggunakan Natural Language Processing (NLP)*")
 
-# Kalkulasi KPI
+# KPI Calculation
 if not df_h_filter.empty and len(df_h_filter) >= 2:
     harga_terakhir = df_h_filter.iloc[-1]['Close']
     harga_kemarin = df_h_filter.iloc[-2]['Close']
@@ -168,7 +168,7 @@ sentimen_mayoritas = df_b_filter['Sentimen'].mode()[0] if not df_b_filter.empty 
 rata_skor_nlp = df_b_filter['Skor_Compound'].mean() if not df_b_filter.empty else 0
 total_berita = len(df_b_filter)
 
-# Warna metrik sentimen NLP
+# AI Sentiment Metric Color
 if rata_skor_nlp > 0.05:
     indikator_nlp = "Positif 🟢"
 elif rata_skor_nlp < -0.05:
@@ -184,7 +184,7 @@ col4.metric("Rata-rata Skor NLP", f"{rata_skor_nlp:.2f}", indikator_nlp)
 
 st.markdown("---")
 
-# Menambahkan Kolom AI Summary di bawah KPI
+# Add AI Summary in the KPI section
 st.subheader("🤖 AI Executive Summary (Powered by Gemini)")
 with st.spinner("Gemini sedang menganalisis berita..."):
     ringkasan = dapatkan_ringkasan_gemini(pilih_saham, df_b_filter)
@@ -192,7 +192,7 @@ with st.spinner("Gemini sedang menganalisis berita..."):
 
 st.markdown("---")
 
-# --- 8. TABS LAYOUT INTERAKTIF ---
+# --- 8. INTERACTIVE TABS LAYOUT ---
 with open("assets/icons/candle-stick.png", "rb") as image_file:
     icon_candle = base64.b64encode(image_file.read()).decode()
 with open("assets/icons/news.png", "rb") as image_file:
