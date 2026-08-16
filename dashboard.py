@@ -114,19 +114,53 @@ if not df_h_filter.empty:
 
 # --- 6. AI SUMMARY FUNCTION ---
 @st.cache_data(ttl=3600)
-def dapatkan_ringkasan_gemini(nama_saham, df_berita):
-    if df_berita.empty:
-        return "Tidak ada berita untuk dianalisis saat ini."
+def dapatkan_ringkasan_gemini(nama_saham, df_harga, df_berita):
+    if df_harga.empty or df_berita.empty:
+        return "Data harga atau berita tidak mencukupi untuk dianalisis saat ini."
     
-    kumpulan_berita = "\n".join([f"- {row['Judul_Berita']}" for _, row in df_berita.head(10).iterrows()])
+    # Agregasi skor NLP rata-rata per hari
+    df_b_harian = df_berita.groupby('Tanggal')['Skor_Compound'].mean().reset_index()
+    df_korelasi = pd.merge(df_harga, df_b_harian, left_on='Date', right_on='Tanggal', how='inner').sort_values('Date')
+    
+    if df_korelasi.empty:
+        return "Tidak ditemukan irisan tanggal antara data harga dan berita untuk menghitung korelasi."
+    
+    # Hitung metrik ringkasan harga & sentimen
+    harga_awal = df_korelasi.iloc[0]['Close']
+    harga_akhir = df_korelasi.iloc[-1]['Close']
+    perubahan_harga = ((harga_akhir - harga_awal) / harga_awal) * 100
+    rata_sentimen = df_korelasi['Skor_Compound'].mean()
+    
+    # Hitung koefisien korelasi Pearson jika data mencukupi
+    corr_text = "N/A (data tidak cukup)"
+    if len(df_korelasi) >= 2 and df_korelasi['Close'].std() > 0 and df_korelasi['Skor_Compound'].std() > 0:
+        r_val = df_korelasi['Close'].corr(df_korelasi['Skor_Compound'])
+        if pd.notna(r_val):
+            corr_text = f"{r_val:.2f}"
+    
+    # Ringkasan data harian (maksimal 15 titik data terbaru untuk konteks model)
+    data_list = []
+    for _, row in df_korelasi.tail(15).iterrows():
+        data_list.append(f"- Tanggal: {row['Date']}, Harga Penutupan: ${row['Close']:.2f}, Rata-rata Skor NLP: {row['Skor_Compound']:.2f}")
+    data_table_str = "\n".join(data_list)
     
     prompt = f"""
-    Kamu adalah seorang analis saham profesional. Berdasarkan berita-berita terbaru mengenai saham {nama_saham} berikut ini:
+    Kamu adalah seorang analis pasar modal kuantitatif profesional.
+    Berikut adalah data korelasi antara Harga Penutupan Saham (Close Price) dan Rata-rata Skor Sentimen Berita NLP (-1.0 s/d 1.0) untuk saham {nama_saham}:
     
-    {kumpulan_berita}
+    Ringkasan Periode ({df_korelasi.iloc[0]['Date']} s/d {df_korelasi.iloc[-1]['Date']}):
+    - Harga Awal vs Akhir: ${harga_awal:.2f} -> ${harga_akhir:.2f} ({perubahan_harga:+.2f}%)
+    - Rata-rata Skor NLP: {rata_sentimen:.2f}
+    - Koefisien Korelasi Pearson (r): {corr_text}
     
-    Tolong berikan ringkasan eksekutif (maksimal 3 kalimat pendek) mengenai bagaimana sentimen pasar terhadap saham {nama_saham} saat ini berdasarkan berita di atas. 
-    Gunakan bahasa Indonesia yang profesional namun mudah dipahami.
+    Riwayat Data Harian (Harga vs Skor NLP):
+    {data_table_str}
+    
+    Tolong berikan ringkasan eksekutif (maksimal 3-4 kalimat) mengenai:
+    1. Bagaimana hubungan/korelasi antara fluktuasi skor sentimen berita dengan pergerakan harga penutupan saham {nama_saham}.
+    2. Apakah tren kenaikan/penurunan harga saham sejalan atau bertolak belakang dengan sentimen pemberitaan pada periode ini.
+    3. Insight atau kesimpulan singkat bagi investor mengenai dampak sentimen terhadap pergerakan harga saham tersebut saat ini.
+    Gunakan bahasa Indonesia yang profesional, lugas, dan mudah dipahami.
     """
     
     # Auto-Retry (Max 3 attempts)
@@ -185,9 +219,9 @@ col4.metric("Rata-rata Skor NLP", f"{rata_skor_nlp:.2f}", indikator_nlp)
 st.markdown("---")
 
 # Add AI Summary in the KPI section
-st.subheader("🤖 AI Executive Summary (Powered by Gemini)")
-with st.spinner("Gemini sedang menganalisis berita..."):
-    ringkasan = dapatkan_ringkasan_gemini(pilih_saham, df_b_filter)
+st.subheader(" AI Executive Summary (Powered by Gemini)")
+with st.spinner("Gemini sedang menganalisis korelasi harga & sentimen..."):
+    ringkasan = dapatkan_ringkasan_gemini(pilih_saham, df_h_filter, df_b_filter)
     st.info(ringkasan)
 
 st.markdown("---")
