@@ -187,7 +187,7 @@ def dapatkan_ringkasan_gemini(nama_saham, df_harga, df_berita):
 with open("assets/icons/analisis-saham.png", "rb") as image_file:
     icon_analisis = base64.b64encode(image_file.read()).decode()
 st.title(f"![icon](data:image/png;base64,{icon_analisis}) Analisis Saham: {pilih_saham}")
-st.markdown("*Analisis Prediktif & Sentimen Berita Menggunakan Natural Language Processing (NLP)*")
+st.markdown("")
 
 # KPI Calculation
 if not df_h_filter.empty and len(df_h_filter) >= 2:
