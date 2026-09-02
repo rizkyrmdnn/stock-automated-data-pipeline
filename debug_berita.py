@@ -1,10 +1,10 @@
 import yfinance as yf
 
-# Kita ambil sample 1 saham aja
+
 saham = yf.Ticker('GOOGL')
 berita_list = saham.news
 
-# Cek apakah ada beritanya
+# check for the news
 if len(berita_list) > 0:
     berita_pertama = berita_list[0]
     print("Kunci (keys) yang tersedia di data berita:")
