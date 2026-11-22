@@ -2,7 +2,7 @@
 
 ### *An End-to-End Cloud Data Pipeline, Lexicon NLP & Hybrid Generative AI Decision Support System (DSS)*
 
-Dashboard Saham AI
+[Dashboard Saham AI](https://korelasi-harga-sentimen-saham.streamlit.app/)
 
 ---
 
