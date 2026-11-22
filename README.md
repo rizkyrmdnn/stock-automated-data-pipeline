@@ -20,7 +20,6 @@ This project delivers a **cloud-native, automated Decision Support System (DSS)*
 
 ## 🏗️ 2. Key Features & End-to-End Architecture
 
-!data flow architecture with legend.png
 
 ### ⚙️ Core System Modules
 
